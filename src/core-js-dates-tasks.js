@@ -148,8 +148,19 @@ function isDateInPeriod(/* date, period */) {
  * '1999-01-05T02:20:00.000Z' => '1/5/1999, 2:20:00 AM'
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
-function formatDate(/* date */) {
-  throw new Error('Not implemented');
+function formatDate(date) {
+  const newDate = new Date(date);
+  const day = newDate.getDate();
+  const month = newDate.getMonth() + 1;
+  const year = newDate.getFullYear();
+  const hours = newDate.getHours();
+  const minutes = newDate.getMinutes().toString().padStart(2, '0');
+  const seconds = newDate.getSeconds().toString().padStart(2, '0');
+
+  const time = hours >= 12 ? 'PM' : 'AM';
+  const resultHours = hours % 12 === 0 ? 12 : hours % 12;
+
+  return `${month}/${day}/${year}, ${resultHours}:${minutes}:${seconds} ${time}`;
 }
 
 /**
